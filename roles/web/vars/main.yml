@@ -2,6 +2,6 @@
 app:
   project_name: visitly
   user: dns
-  project_dir: /home/{{app.user}}/{{app.project_name}}/
+  project_dir: /home/{{user}}/{{project_name}}/
 git_repo:
   url: "https://github.com/DameonSmith/aws-flask-site"
