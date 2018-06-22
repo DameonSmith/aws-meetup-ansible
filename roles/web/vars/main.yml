@@ -4,4 +4,4 @@ app:
   user: SOMETHING #FIXME:
   project_dir: /home/{{app.user}}/{{app.project_name}}/
 git_repo:
-  url: "URL"
+  url: "https://github.com/DameonSmith/aws-flask-site"
