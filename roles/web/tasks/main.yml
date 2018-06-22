@@ -1,0 +1,42 @@
+---
+- name: Install SCL Repo
+  yum: name=centos-release-scl state=present
+- name: Install Python
+  yum: name=rh-python36 state=present
+- name: Change python version
+  command: scl enable rh-python36 bash
+- name: Install Pipenv
+  pip:
+    name: pipenv
+- name: Pulldown Flask Code
+  git:
+    repo: '{{ git_repo.url }}'
+    dest: '{{ app.project_dir }}'
+- name: Install python requirements
+  command: chdir={{ app.project_dir }} pipenv install
+- name: Create custom fact directory
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+- name: Insert cutom fact file
+  copy:
+    src: files/venv.fact
+    dest: /etc/ansible/facts.d/venv.fact
+    mode: 0755
+- name: Rerun setup for custom facts
+  setup: ~
+- name: Install nginx
+  yum: name=nginx state=present
+- name: Copy nginx default config 
+  template: src=default.conf.j2 dest=/etc/nginx/default.conf
+- name: Copy flask app config for flask proxy 
+  template: src=dev-ops-demo.conf.j2 dest=/ect/nginx/conf.d/dev-ops-demo.conf
+  notify: restart nginx
+- name: Copy health check file over
+  copy: 
+    src: health.html 
+    dest: /var/www/public_html/health.html
+- name: Copy index file over
+  copy: 
+    src: health.html 
+    dest: /var/www/public_html/index.html
