@@ -1,7 +1,5 @@
 ---
-app:
-  project_name: visitly
-  user: dns
-  project_dir: /home/{{user}}/{{project_name}}/
-git_repo:
-  url: "https://github.com/DameonSmith/aws-flask-site"
+project_name: visitly
+user: dns
+project_dir: /home/{{user}}/{{project_name}}/
+git_repo_url: "https://github.com/DameonSmith/aws-flask-site"

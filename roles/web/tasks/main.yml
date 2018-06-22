@@ -10,10 +10,10 @@
     name: pipenv
 - name: Pulldown Flask Code
   git:
-    repo: '{{ git_repo.url }}'
-    dest: '{{ app.project_dir }}'
+    repo: '{{ git_repo_url }}'
+    dest: '{{ project_dir }}'
 - name: Install python requirements
-  command: chdir={{ app.project_dir }} pipenv install
+  command: chdir={{ project_dir }} pipenv install
 - name: Create custom fact directory
   file:
     path: /etc/ansible/facts.d
