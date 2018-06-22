@@ -3,6 +3,8 @@
   hosts: localhost
   become: yes
   become_method: sudo
+  environment:
+    PATH: "{{ansible_env.PATH}}:/opt/rh/rh-python36/root/usr/bin/"
 
   roles:
     - web
