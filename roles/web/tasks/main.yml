@@ -34,6 +34,14 @@
 - name: Copy flask app config for flask proxy 
   template: src=dev-ops-demo.conf.j2 dest=/etc/nginx/conf.d/dev-ops-demo.conf
   notify: restart nginx
+- name: Create public html dir
+  file:
+    path: /var/www/public_html/
+    state: directory
+    owner: nginx
+    group: nginx
+    mode: 0755
+    recurse: yes
 - name: Copy health check file over
   copy: 
     src: health.html 
