@@ -1,7 +1,10 @@
 ---
+- name: enable uwsgi
+  systemd:
+    name: visitly
+    state: started
+    enabled: yes
 - name: restart nginx
-  service:
+  systemd:
     name: nginx
     state: restarted
-    enabled: yes
-    use: service

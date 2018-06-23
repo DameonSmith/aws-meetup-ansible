@@ -1,8 +1,23 @@
 ---
-- name: Install SCL Repo
-  yum: name=centos-release-scl state=present
+- name: Install Python Repo
+  apt-repository: 
+    repo: ppa:deadsnakes/ppa
 - name: Install Python
-  yum: name=rh-python36 state=present
+  apt:
+    name: python3.6
+    update_cache: yes
+- name: Install Python-Dev
+  apt:
+    name: python3-dev
+    update_cache: yes
+- name: Install Python-Pip
+  apt:
+    name: python3-pip
+    update_cache: yes
+- name: Install Build essentials
+  apt:
+    name: build-essentials
+    update_cache: yes
 - name: Change python version
   command: scl enable rh-python36 bash
 - name: Install Pipenv
@@ -25,14 +40,19 @@
     mode: 0755
 - name: Rerun setup for custom facts
   setup: ~
-- name: Install nginx Repo Centos 7
-  yum: name=epel-release state=present
+- name: Create uWSGI Service
+  template: src=visitly.service.j2 dest=/etc/systemd/system/{{project_name}}.service
+  notify: enable uwsgi
 - name: Install nginx
-  yum: name=nginx state=present
-- name: Copy nginx default config 
-  template: src=default.conf.j2 dest=/etc/nginx/default.conf
-- name: Copy flask app config for flask proxy 
-  template: src=dev-ops-demo.conf.j2 dest=/etc/nginx/conf.d/dev-ops-demo.conf
+  apt: 
+    name:nginx 
+    update_cache: yes
+- name: Set sites available
+  template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
+- name: Link sites available
+  command: ln -s /etc/nginx/sites-availalbe/visitly /etc/nginx/sites-enabled
+- name: Validate nginx
+  command: nginx -t
   notify: restart nginx
 - name: Create public html dir
   file:
@@ -50,3 +70,5 @@
   copy: 
     src: health.html 
     dest: /var/www/public_html/index.html
+- name: Enable firewall
+  command: ufw allow 'Nginx Full'
