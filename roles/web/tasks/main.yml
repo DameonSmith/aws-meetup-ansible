@@ -25,6 +25,7 @@
   git:
     repo: '{{ git_repo_url }}'
     dest: '{{ project_dir }}'
+  become: no
 - name: Install python requirements
   command: chdir={{ project_dir }} pipenv install
 - name: Create custom fact directory

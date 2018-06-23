@@ -1,5 +1,5 @@
 [Unit]
-Description="uWSGI server instance configured to serve {{ project_name }}"
+Description="Gunicorn server instance configured to serve {{ project_name }}"
 After=network.target
 
 [Service]
@@ -7,7 +7,7 @@ User={{ user }}
 Group=www-data
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
-ExecStart={{ ansible_local.venv.path}}/bin/uwsgi --ini {{ project_name }}.ini
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --bind unix:myproject.sock -m 007 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
