@@ -63,10 +63,10 @@
 - name: Copy health check file over
   copy: 
     src: health.html 
-    dest: /var/www/public_html/health.html
+    dest: /var/www/public_html/health/health.html
 - name: Copy index file over
   copy: 
     src: health.html 
-    dest: /var/www/public_html/index.html
+    dest: /var/www/public_html/health/index.html
 - name: Enable firewall
   command: ufw allow 'Nginx Full'

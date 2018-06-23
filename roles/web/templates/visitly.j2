@@ -7,7 +7,7 @@ server {
         uwsgi_pass unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock;
     }
 
-    location /health/ {
+    location /health {
         root /var/www/public_html;
     }
 }
