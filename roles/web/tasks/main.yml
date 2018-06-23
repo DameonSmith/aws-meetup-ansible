@@ -14,9 +14,9 @@
   apt:
     name: python3-pip
     update_cache: yes
-- name: Install Build essentials
+- name: Install Build essential
   apt:
-    name: build-essentials
+    name: build-essential
     update_cache: yes
 - name: Change python version
   command: scl enable rh-python36 bash
