@@ -8,7 +8,7 @@
     update_cache: yes
 - name: Install Python-Dev
   apt:
-    name: python3-dev
+    name: python3.6-dev
     update_cache: yes
 - name: Install Python-Pip
   apt:
