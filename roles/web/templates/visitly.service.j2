@@ -6,7 +6,7 @@ After=network.target
 User={{ user }}
 Group=www-data
 WorkingDirectory={{ project_dir }}
-Environment="PATH={{ hostvars.host.ansible_local.venv.path }}/bin"
+Environment="PATH={{ ansible_local.venv.path }}/bin"
 ExecStart={{ ansible_local.venv.path}}/bin/uwsgi --ini {{ project_name }}.ini
 
 [Install]
