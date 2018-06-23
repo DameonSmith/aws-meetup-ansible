@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ~
+cd /home/dns/visitly/
 VENV=pipenv --venv
 echo '{"path": "${VENV}"}'
