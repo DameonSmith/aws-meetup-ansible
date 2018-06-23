@@ -56,7 +56,7 @@
   file:
     path: /var/www/public_html/health/
     state: directory
-    owner: '{{ user }}'
+    owner: www-data
     group: www-data
     mode: 0755
     recurse: yes
