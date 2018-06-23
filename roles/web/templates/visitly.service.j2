@@ -3,7 +3,7 @@ Description="uWSGI server instance configured to serve {{ project_name }}"
 After=network.target
 
 [Service]
-User={{ user }}
+User=root
 Group=www-data
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
