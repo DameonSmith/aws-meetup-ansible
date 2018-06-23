@@ -1,6 +1,6 @@
 ---
 - name: Install Python Repo
-  apt-repository: 
+  apt_repository: 
     repo: ppa:deadsnakes/ppa
 - name: Install Python
   apt:
