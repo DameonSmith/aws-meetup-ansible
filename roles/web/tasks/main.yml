@@ -45,7 +45,7 @@
   notify: enable uwsgi
 - name: Install nginx
   apt: 
-    name:nginx 
+    name: nginx 
     update_cache: yes
 - name: Set sites available
   template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
