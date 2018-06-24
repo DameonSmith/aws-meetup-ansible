@@ -28,6 +28,7 @@
   become: no
 - name: Install python requirements
   command: chdir={{ project_dir }} pipenv install
+  become: no
 - name: Create custom fact directory
   file:
     path: /etc/ansible/facts.d
