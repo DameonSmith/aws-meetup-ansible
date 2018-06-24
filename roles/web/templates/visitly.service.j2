@@ -7,7 +7,7 @@ User={{ user }}
 Group=www-data
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
-ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --bind unix:myproject.sock -m 007 wsgi:app
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --bind unix:visitly.sock -m 007 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
