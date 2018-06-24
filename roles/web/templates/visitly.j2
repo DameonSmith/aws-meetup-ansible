@@ -1,13 +1,36 @@
+upstream app_server {
+    server unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock fail_timeout=0;
+}
+
 server {
-    listen 80;
-    server_name localhost;
+    listen 80 default_server;
+    return 444
+}
+
+server {
+    listen 80 deferred;
+    client_max_body_size 4G;
+
+    server_name _;
+
+    keepalive_timeout 5;
+
+    root /var/www/public_html;
 
     location / {
-        include proxy_params;
-        proxy_pass http://unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock;
+        try_files $uri @proxy_to_app;
     }
 
-    location /health {
-        root /var/www/public_html;
+    location @proxy_to_app {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://app_server;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+      root /path/to/app/current/public;
     }
 }
