@@ -43,6 +43,10 @@
   become: no
 - name: Create uWSGI Service
   template: src=visitly.service.j2 dest=/etc/systemd/system/{{project_name}}.service
+- name: Copy socket file
+  template: src=gunicorn.socket.j2 dest=/etc/systemd/system/gunicorn.socket
+- name: Copy gunicorn config
+  template: src=gunicorn.conf.j2 dest=/etc/tmpfiles.d/gunicorn.conf
   notify: enable uwsgi
 - name: Install nginx
   apt: 
@@ -51,7 +55,7 @@
 - name: Set sites available
   template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
 - name: Link sites available
-  command: ln -sf /etc/nginx/sites-availalbe/visitly /etc/nginx/sites-enabled
+  command: ln -sf /etc/nginx/sites-availalbe/visitly /etc/nginx/sites-enabled/visitly
 - name: Validate nginx
   command: nginx -t
   notify: restart nginx

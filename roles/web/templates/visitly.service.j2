@@ -1,13 +1,18 @@
 [Unit]
 Description="Gunicorn server instance configured to serve {{ project_name }}"
+Requires=gunicorn.socket
 After=network.target
 
 [Service]
+PIDFile=/home/{{user}}/app.pid
 User={{ user }}
 Group=www-data
+RuntimeDirectory=gunicorn
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
-ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --bind unix:visitly.sock -m 007 wsgi:application
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --pid /home/{{user}}/app.pid --bind unix:/home/{{user}}/{{project_name}}/visitly.sock -m 007 visitly.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
 
 [Install]
 WantedBy=multi-user.target

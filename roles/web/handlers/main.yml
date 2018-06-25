@@ -1,7 +1,7 @@
 ---
 - name: enable uwsgi
   systemd:
-    name: visitly
+    name: gunicorn.socket
     state: started
     enabled: yes
 - name: restart nginx
