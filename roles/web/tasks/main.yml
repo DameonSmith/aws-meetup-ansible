@@ -56,6 +56,10 @@
   file:
     state: absent
     path: /etc/nginx/sites-available/default
+- name: Delete nginx default link
+  file:
+    state: absent
+    path: /etc/nginx/sites-enabled/default
 - name: Set sites available
   template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
 - name: Link sites available
