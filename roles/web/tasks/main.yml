@@ -42,7 +42,7 @@
   setup: filter=ansible_local
   become: no
 - name: Create uWSGI Service
-  template: src=visitly.service.j2 dest=/etc/systemd/system/{{project_name}}.service
+  template: src=visitly.service.j2 dest=/etc/systemd/system/gunicorn.service
 - name: Copy socket file
   template: src=gunicorn.socket.j2 dest=/etc/systemd/system/gunicorn.socket
 - name: Copy gunicorn config

@@ -1,5 +1,5 @@
 upstream app_server {
-    server unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock fail_timeout=0;
+    server unix:/run/gunicorn/socket fail_timeout=0;
 }
 
 server {

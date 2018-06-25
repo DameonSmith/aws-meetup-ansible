@@ -4,13 +4,13 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
-PIDFile=/home/{{user}}/app.pid
+PIDFile=/run/gunicorn/pid
 User={{ user }}
 Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
-ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --pid /home/{{user}}/app.pid --bind unix:/home/{{user}}/{{project_name}}/visitly.sock -m 007 visitly.wsgi
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 3 --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket -m 007 visitly.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 
