@@ -53,7 +53,9 @@
     name: nginx 
     update_cache: yes
 - name: Delete nginx default
-  command: rm /etc/nginx/sites-availalbe/default
+  file:
+    state: absent
+    path: /etc/nginx/sites-available/default
 - name: Set sites available
   template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
 - name: Link sites available
