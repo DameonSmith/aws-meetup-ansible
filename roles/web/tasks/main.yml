@@ -59,6 +59,10 @@
     src: /etc/nginx/sites-available/visitly
     dest: /etc/nginx/sites-enabled/visitly
     state: link
+- name: Delete nginx default
+  file:
+    state: absent
+    path: /etc/nginx/sites-availalbe/default
 - name: Validate nginx
   command: nginx -t
   notify: restart nginx
