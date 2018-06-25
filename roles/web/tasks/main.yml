@@ -57,7 +57,7 @@
 - name: Link sites available
   file:
     src: /etc/nginx/sites-available/visitly
-    dest: /etc/nginx/sites-enabled
+    dest: /etc/nginx/sites-enabled/visitly
     state: link
 - name: Validate nginx
   command: nginx -t
