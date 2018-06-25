@@ -1,8 +1,8 @@
 ---
-- name: Install Python Repo
+- name: install python repo
   apt_repository: 
     repo: ppa:deadsnakes/ppa
-- name: Install Python
+- name: install python
   apt:
     name: python3.6
     update_cache: yes
