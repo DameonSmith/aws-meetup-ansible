@@ -10,7 +10,7 @@ Group=www-data
 RuntimeDirectory=gunicorn
 WorkingDirectory={{ project_dir }}
 Environment="PATH={{ ansible_local.venv.path }}/bin"
-ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 1 --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket visitly.wsgi
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 1 --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 
