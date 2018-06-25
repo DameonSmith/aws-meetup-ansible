@@ -8,8 +8,6 @@ error_log /tmp/nginx.error.log;
 events {
   worker_connections 1024; # increase if you have lots of clients
   accept_mutex off; # set to 'on' if nginx worker_processes > 1
-  # 'use epoll;' to enable for Linux 2.6+
-  # 'use kqueue;' to enable for FreeBSD, OSX
 }
 
 http {
@@ -21,7 +19,7 @@ http {
 
   upstream app_server {
     # fail_timeout=0 means we always retry an upstream even if it failed
-    server unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock
+    server unix:/home/{{user}}/{{project_name}}/{{project_name}}.sock;
   }
 
   server {
