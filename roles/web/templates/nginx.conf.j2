@@ -1,8 +1,8 @@
 worker_processes 1;
 
-user nobody nogroup;
+user www-data www-data;
 # 'user nobody nobody;' for systems with 'nobody' as a group instead
-pid /tmp/nginx.pid;
+pid /run/nginx.pid;
 error_log /tmp/nginx.error.log;
 
 events {
