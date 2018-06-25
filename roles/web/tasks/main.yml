@@ -55,7 +55,10 @@
 - name: Set sites available
   template: src=visitly.j2 dest=/etc/nginx/sites-available/visitly
 - name: Link sites available
-  command: ln -sf /etc/nginx/sites-availalbe/visitly /etc/nginx/sites-enabled/visitly
+  file:
+    src: /etc/nginx/sites-available/visitly
+    dest: /etc/nginx/sites-enabled
+    state: link
 - name: Validate nginx
   command: nginx -t
   notify: restart nginx
