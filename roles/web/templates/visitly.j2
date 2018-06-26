@@ -11,6 +11,7 @@ server {
     listen 80 deferred;
     client_max_body_size 4G;
 
+    server_name {{ ansible_local.venv.local_ip }} *.ec2.internal *.amazonaws.com;
 
     keepalive_timeout 5;
 

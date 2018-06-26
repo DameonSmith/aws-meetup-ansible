@@ -1,6 +1,10 @@
 #!/bin/bash
 cd /home/dns/visitly/
 VENV=$(pipenv --venv)
+INTERNALIP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
 cat <<EOF
-{"path": "$VENV"}
+{
+"path": "$VENV",
+"local_ip": "$INTERNALIP",
+}
 EOF
