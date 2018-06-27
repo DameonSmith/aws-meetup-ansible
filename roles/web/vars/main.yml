@@ -1,5 +1,5 @@
 ---
 project_name: visitly
-user: dns
+user: ubuntu
 project_dir: /home/{{user}}/{{project_name}}/
-git_repo_url: "https://github.com/DameonSmith/aws-flask-site"
+git_repo_url: "https://github.com/DameonSmith/aws-flask-site.git"
