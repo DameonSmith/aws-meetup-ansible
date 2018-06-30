@@ -1,0 +1,18 @@
+[Unit]
+Description="Gunicorn server instance configured to serve {{ project_name }}"
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/pid
+User={{ user }}
+Group=www-data
+RuntimeDirectory=gunicorn
+WorkingDirectory={{ project_dir }}
+Environment="PATH={{ ansible_local.venv.path }}/bin"
+ExecStart={{ ansible_local.venv.path }}/bin/gunicorn --workers 1 --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

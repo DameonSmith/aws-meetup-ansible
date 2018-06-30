@@ -1,5 +1,5 @@
 ---
-- name: install python repo
+- name: Install python repo
   apt_repository: 
     repo: ppa:deadsnakes/ppa
 - name: install python
@@ -42,7 +42,7 @@
   setup: filter=ansible_local
   become: no
 - name: Create uWSGI Service
-  template: src=visitly.service.j2 dest=/etc/systemd/system/gunicorn.service
+  template: src=gunicorn.service.j2 dest=/etc/systemd/system/gunicorn.service
 - name: Copy socket file
   template: src=gunicorn.socket.j2 dest=/etc/systemd/system/gunicorn.socket
 - name: Copy gunicorn config
@@ -70,21 +70,3 @@
 - name: Validate nginx
   command: nginx -t
   notify: restart nginx
-- name: Create public html dir
-  file:
-    path: /var/www/public_html/health/
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: 0755
-    recurse: yes
-- name: Copy health check file over
-  copy: 
-    src: health.html 
-    dest: /var/www/public_html/health/health.html
-- name: Copy index file over
-  copy: 
-    src: health.html 
-    dest: /var/www/public_html/health/index.html
-- name: Enable firewall
-  command: ufw allow 'Nginx Full'
