@@ -18,6 +18,26 @@
   apt:
     name: build-essential
     update_cache: yes
+- name: Install Ruby
+  apt:
+    name: ruby
+    update_cache: yes
+- name: Install Wget
+  apt:
+    name: wget
+    update_cache: yes
+- name: Install 
+  apt:
+    name: wget
+    update_cache: yes
+- name: Download CodeDeploy Agent Installer
+  get_url:
+    url: https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
+    dest: '/home/ubuntu'
+    mode: 0700
+- name: Install CodeDeploy Agent
+  command: chdir='/home/ubuntu' ./install
+  notify: enable codedeploy
 - name: Install Pipenv
   pip:
     name: pipenv

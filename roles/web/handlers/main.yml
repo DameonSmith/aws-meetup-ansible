@@ -8,3 +8,8 @@
   systemd:
     name: nginx
     state: restarted
+- name: enable codedeploy
+  systemd:
+    name: codedeploy-agent
+    state: started
+    enabled: yes
