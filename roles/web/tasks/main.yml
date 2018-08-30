@@ -26,17 +26,13 @@
   apt:
     name: wget
     update_cache: yes
-- name: Install 
-  apt:
-    name: wget
-    update_cache: yes
 - name: Download CodeDeploy Agent Installer
   get_url:
     url: https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
     dest: '/home/ubuntu'
     mode: 0700
 - name: Install CodeDeploy Agent
-  command: chdir='/home/ubuntu' ./install
+  command: chdir='/home/ubuntu' ./install auto
   notify: enable codedeploy
 - name: Install Pipenv
   pip:
